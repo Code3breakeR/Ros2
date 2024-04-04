@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+    <!-- <include file="$(find-pkg-share urdf_tutorial)/xacro/MrRobot"/> -->
+    <!-- <include file="$(find-pkg-share urdf_tutorial)/xacro/svaya_aiu_6_v2.urdf.xacro"/> -->
+    
+    <let name="r2d2_config" value="$(find-pkg-share urdf_tutorial)/rviz2/urdf.rviz"/>
+    <node name="rviz2" pkg="rviz2" exec="rviz2" args="-d $(var r2d2_config)"/>
+
+    <node name="robot_description" command="$(find-pkg-share xacro)/xacro '$(arg model)'" />
+    <node name="ros2talker" pkg="urdf_tutorial" exec="ros2talker" output="screen" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher" output="screen" args = "$(find-pkg-share urdf_tutorial)/xacro/svaya_aiu_6_v2.urdf.xacro"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+</launch>

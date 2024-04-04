@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<robot name="mr.Robot">
+
+  <material name="blue">
+     <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="white">
+     <color rgba="1 1 1 1"/>
+  </material>
+  <material name="black">
+     <color rgba="0 0 0 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.1 0.5 1"/>
+         </geometry>
+          <origin rpy="0 1.57075 0" xyz="0 0 0.1"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <link name="FRWheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+         </geometry>
+        <origin rpy="1.57075 1.57075 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="FRWheelJoint" type="continuous">
+    <parent link="base_link"/>
+      <child link="FRWheel"/>
+      <axis xyz="0 1 0"/>
+    <origin xyz="0.4 0.275 0.05"/>
+  </joint>
+
+    <link name="FLWheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+         </geometry>
+        <origin rpy="1.57075 1.57075 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="FLWheelJoint" type="continuous">
+    <parent link="base_link"/>
+      <child link="FLWheel"/>
+      <axis xyz="0 1 0"/>
+    <origin xyz="0.4 -0.275 0.05"/>
+  </joint>
+
+    <link name="RRWheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+         </geometry>
+        <origin rpy="1.57075 1.57075 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="RRWheelJoint" type="continuous">
+    <parent link="base_link"/>
+      <child link="RRWheel"/>
+      <axis xyz="0 1 0"/>
+    <origin xyz="-0.4 0.275 0.05"/>
+  </joint>
+
+  <link name="RLWheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+         </geometry>
+        <origin rpy="1.57075 1.57075 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="RLWheelJoint" type="continuous">
+    <parent link="base_link"/>
+      <child link="RLWheel"/>
+      <axis xyz="0 1 0"/>
+    <origin xyz="-0.4 -0.275 0.05"/>
+  </joint>
+
+  <link name="RHeadLight">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.025"/>
+          </geometry>
+        <origin rpy="0 1.57075 0"/>
+    </visual>
+  </link>  
+  <joint name="RHeadLightJoint" type="fixed">
+    <parent link="base_link"/>
+      <child link="RHeadLight"/>
+    <origin xyz="0.5 0.15 0.1"/>
+  </joint>   
+
+    <link name="LHeadLight">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.025"/>
+          </geometry>
+        <origin rpy="0 1.57075 0"/>
+    </visual>
+  </link>  
+  <joint name="LHeadLightJoint" type="fixed">
+    <parent link="base_link"/>
+      <child link="LHeadLight"/>
+    <origin xyz="0.5 -0.15 0.1"/>
+  </joint> 
+
+  <link name="RBackLight">
+    <visual>
+      <geometry>
+        <box size="0.025 0.05 0.05"/>
+          </geometry>
+        <origin rpy="1.57075 0 0"/>
+    </visual>
+  </link>  
+  <joint name="RBackLightJoint" type="fixed">
+    <parent link="base_link"/>
+      <child link="RBackLight"/>
+    <origin xyz="-0.5 0.15 0.1"/>
+  </joint>
+
+  <link name="LBackLight">
+    <visual>
+      <geometry>
+        <box size="0.025 0.05 0.05"/>
+          </geometry>
+        <origin rpy="1.57075 0 0"/>
+    </visual>
+  </link>  
+  <joint name="LBackLightJoint" type="fixed">
+    <parent link="base_link"/>
+      <child link="LBackLight"/>
+    <origin xyz="-0.5 -0.15 0.1"/>
+  </joint>
+
+    <link name="roof1">
+    <visual>
+      <geometry>
+        <box size="0.08 0.3 0.8"/>
+         </geometry>
+          <origin rpy="0 1.57075 0"/>
+      <material name="white"/>
+    </visual>
+  </link> 
+  <joint name="roofJoint1" type="fixed">
+    <parent link="base_link"/>
+      <child link="roof1"/>
+    <origin xyz="0 0 0.2"/>
+  </joint>  
+
+
+  <link name="tail1">
+    <visual>
+      <geometry>
+        <box size="0.08 0.08 0.4"/>
+         </geometry>
+          <origin rpy="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link> 
+  <joint name="tailJoint1" type="revolute">
+    <parent link="roof1"/>
+      <child link="tail1"/>
+       <axis xyz="0 0 1"/>
+       <limit effort="1000.0" lower="-0.548" upper="0.548" velocity="1"/>
+    <origin xyz="-0.4 0 0.15"/>
+  </joint>  
+
+  <link name="tail2">
+    <visual>
+      <geometry>
+        <box size="0.08 0.08 0.4"/>
+         </geometry>
+          <origin rpy="0 0.523 0" xyz="0.04 0 0.15"/>
+      <material name="white"/>
+    </visual>
+  </link> 
+  <joint name="tailJoint2" type="revolute">
+    <parent link="tail1"/>
+      <child link="tail2"/>
+       <origin xyz="0.04 0 0.15"/>
+     <axis xyz="0 1 0"/>
+   <limit effort="1000.0" lower="-0.548" upper="0.548" velocity="1"/>
+  </joint>    
+
+  <link name="tail3">
+    <visual>
+      <geometry>
+        <box size="0.08 0.08 0.4"/>
+         </geometry>
+          <origin rpy="0 -1.0467 0" xyz="0.2 0 -0.1"/>
+      <material name="white"/>
+    </visual>
+  </link> 
+  <joint name="tailJoint3" type="revolute">
+    <parent link="tail2"/>
+      <child link="tail3"/>
+        <origin xyz="0.1 0 0.3"/>
+      <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-0.548" upper="0.548" velocity="1"/>
+  </joint>
+
+</robot>      

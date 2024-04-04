@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <robot xmlns:xacro="http://www.ros.org/wiki/xacro"> -->
+<robot xmlns:xacro="http://docs.ros.org/en/eloquent/index.html">
+
+    <xacro:macro name="svaya_gazebo" params="robot_name">
+
+        <!-- Load Gazebo lib and set the robot namespace -->
+        <gazebo>
+            <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+                <robotNamespace>svaya</robotNamespace>
+                <robotSimType>gazebo_ros2_control/DefaultRobotHWSim</robotSimType>
+            </plugin>
+        </gazebo>
+
+        <!-- Link0 -->
+        <gazebo reference="link0">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Link1 -->
+        <gazebo reference="link1">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Link2 -->
+        <gazebo reference="link2">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Link3 -->
+        <gazebo reference="link3">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Link4 -->
+        <gazebo reference="link4">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Link5 -->
+        <gazebo reference="link5">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Link6 -->
+        <gazebo reference="link6">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+    </xacro:macro>
+</robot>
