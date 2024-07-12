@@ -39,6 +39,9 @@ jobs:
     needs: install
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      
       - name: Build Ros2 Project
         run: |
           source /opt/ros/humble/setup.bash
