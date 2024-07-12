@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -35,20 +35,32 @@ jobs:
           sudo apt install -y python3-rosdep python3-colcon-common-extensions
           sudo rosdep init
           rosdep update
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-      
+
       - name: Build Ros2 Project
         run: |
           source /opt/ros/humble/setup.bash
           colcon build
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Ros2_build
+          path: build
+          path: install
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-files
+      - name: output content
+        run: ls
+      - name: Deploy
+        run: echo "deploying ..."
       
-      - name: Verify Installation
-        run: echo "Successfully installed ROS2 and built the workspace."
 
 
 
