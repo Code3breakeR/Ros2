@@ -1,4 +1,4 @@
-name: Workflow for Ros2
+name: Workflow for ROS2
 
 on:
   push:
@@ -6,42 +6,52 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# env:
-#   BUILD_TYPE: Release
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Get tje code
-      - uses: actions/checkout@v4
-      - name: install Ros2
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      
+      - name: Install ROS2 Humble
         run: |
-          locale 
-          sudo apt update && sudo apt install locales
+          sudo apt update && sudo apt install -y locales
           sudo locale-gen en_US en_US.UTF-8
           sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
           export LANG=en_US.UTF-8
-          locale 
-          sudo apt install software-properties-common
+          sudo apt install -y software-properties-common
           sudo add-apt-repository universe
-          sudo apt update && sudo apt install curl -y
+          sudo apt update && sudo apt install -y curl
           sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
           sudo apt update
-          sudo apt upgrade
-          sudo apt install ros-humble-desktop
+          sudo apt upgrade -y
+          sudo apt install -y ros-humble-desktop
           echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-      - name: verify to install
-        run: echo "successfully install Ros2"
+          source /opt/ros/humble/setup.bash
+      
+      - name: Install ROS2 Dependencies
+        run: |
+          sudo apt install -y python3-rosdep python3-colcon-common-extensions
+          sudo rosdep init
+          rosdep update
+      
+      - name: Setup ROS2 Workspace
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build
+      
+      - name: Verify Installation
+        run: echo "Successfully installed ROS2 and built the workspace."
 
-    # - name: Configure CMake
-    #   run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
-    # - name: Build
-    #   run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      # - name: Configure CMake
+      #   run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
-    # - name: Test
-    #   working-directory: ${{github.workspace}}/build
-    #   run: ctest -C ${{env.BUILD_TYPE}}
+      # - name: Build
+      #   run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      # - name: Test
+      #   working-directory: ${{github.workspace}}/build
+      #   run: ctest -C ${{env.BUILD_TYPE}}
 
