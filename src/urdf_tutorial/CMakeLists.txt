@@ -28,7 +28,7 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME})
 
 install(
-  DIRECTORY launch rviz2 xacro meshes urdf
+  DIRECTORY launch rviz2 xacro urdf
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()
