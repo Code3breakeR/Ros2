@@ -45,8 +45,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Ros2_build
-          path: build
-          path: install
+          path: |
+            build
+            install
 
   deploy:
     needs: build
@@ -55,12 +56,8 @@ jobs:
       - name: Get build artifacts
         uses: actions/download-artifact@v3
         with:
-          name: build-files
-      - name: output content
+          name: Ros2_build
+      - name: Output content
         run: ls
       - name: Deploy
         run: echo "deploying ..."
-      
-
-
-
