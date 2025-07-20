@@ -97,6 +97,7 @@ pipeline {
       archiveArtifacts artifacts: 'all_files.txt', allowEmptyArchive: true
       archiveArtifacts artifacts: 'ros2_ws/log/**', allowEmptyArchive: true
       archiveArtifacts artifacts: 'ros2_ws/install/**', allowEmptyArchive: true
+      sh 'sudo rm -rf ${WORKSPACE}/* || true'
     }
     success {
       echo '✅ Build and deployment completed successfully.'
